@@ -111,5 +111,22 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 8,
 
-  }
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 12,
+    textAlign: "center"
+  },
+  modalActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 16
+  },
+  emptyText: {
+    textAlign: "center",
+    color: "#8E8E93",
+    fontSize: 16,
+    marginTop: 20
+  } 
 });

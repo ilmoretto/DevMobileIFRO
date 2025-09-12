@@ -11,10 +11,12 @@ function TaskApp() {
   // states
   const [tarefas, setTarefas] = useState([]);
   const [textoInput, setTextoInput] = useState("");
-  const [filtro, setfiltro] = useState("todas");
-  const [modalVisivel, setModalVisivel] = useState(false);
+  const [filtro, setFiltro] = useState("todas");
+  const [modalEdicao, setModalEdicao] = useState(false);
   const [editandoTarefa, setEditandoTarefa] = useState(null);
   const [novoTextoInput, setNovoTextoInput] = useState("");
+  const [modalConfirmacao, setModalConfirmacao] = useState(false);//modal para confirmar remoção da lista
+  const [tarefaParaRemover, setTarefaParaRemover] = useState(null); //tarefa selecionada para remoção
 
   // actions - tarefas
   const adicionarTarefa = () => {
@@ -40,8 +42,7 @@ function TaskApp() {
     setTarefas(
       tarefas.map((tarefa) =>
         tarefa.id === idConcluida
-          ? { ...tarefa, concluida: !tarefa.concluida }
-          : tarefa
+          ? { ...tarefa, concluida: !tarefa.concluida } : tarefa
       )
     );
   };
@@ -50,7 +51,7 @@ function TaskApp() {
   const abrirModalEdicao = (tarefaSelecionada) => {
     setEditandoTarefa(tarefaSelecionada);
     setNovoTextoInput(tarefaSelecionada.nome);
-    setModalVisivel(true);
+    setModalEdicao(true);
   };
 
   const salvarEdicao = () => {
@@ -63,10 +64,31 @@ function TaskApp() {
           : tarefa
       )
     );
-    setModalVisivel(false);
+    setModalEdicao(false);
     setEditandoTarefa(null);
     setNovoTextoInput("");
   };
+
+  const solicitarRemocao = (tarefa) => {
+    setTarefaParaRemover(tarefa);
+    setModalConfirmacao(true);
+  };
+  const confirmarRemocao = () => {
+    if (!tarefaParaRemover) return;
+    removerTarefa(tarefaParaRemover.id);
+    setModalConfirmacao(false);
+    setTarefaParaRemover(null);
+  }
+  const cancelarRemocao = () => {
+    setModalConfirmacao(false);
+    setTarefaParaRemover(null);
+  };
+
+
+
+
+
+
 
   // filtro
   let listaFiltrada;
@@ -100,6 +122,12 @@ function TaskApp() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
+            {/* "Checkbox" usando TouchableOpacityComponent */}
+            <TouchableOpacityComponent
+              title={item.concluida ? "☑" : "☐"}
+              onPress={() => toggleTaskConcluida(item.id)}
+              style={styles.checkbox}
+            />
 
             <Text
               style={{
@@ -118,25 +146,42 @@ function TaskApp() {
               <TouchableOpacityComponent
                 style={styles.removeButton}
                 title="Remover"
-                onPress={() => removerTarefa(item.id)}
+                onPress={() => solicitarRemocao(item)}
               />
             </View>
+
           </View>
         )}
+
       />
+
 
       {/* Modal de edição */}
       <ModalComponent
-        visible={modalVisivel}
-        onClose={() => setModalVisivel(false)}
+        visible={modalEdicao}
+        onClose={() => setModalEdicao(false)}
       >
         <Text style={styles.modalText}>Editar tarefa</Text>
         <TextInput
           value={novoTextoInput}
           onChangeText={setNovoTextoInput}
           style={styles.input}
+          placeholder="Novo nome da tarefa"
         />
         <ButtonComponent title="Salvar" onPress={salvarEdicao} />
+      </ModalComponent>
+
+      {/* Modal de confirmação de remoção */}
+      <ModalComponent visible={modalConfirmacao} onClose={cancelarRemocao}>
+        <Text style={styles.modalTitle}>Remover tarefa</Text>
+        <Text style={styles.modalText}>
+          Tem certeza que deseja remover
+          {tarefaParaRemover ? ` "${tarefaParaRemover.nome}"` : ""}?
+        </Text>
+        <View style={styles.modalActions}>
+          <ButtonComponent title="Remover" onPress={confirmarRemocao} />
+        </View>
+
       </ModalComponent>
     </View>
   );
