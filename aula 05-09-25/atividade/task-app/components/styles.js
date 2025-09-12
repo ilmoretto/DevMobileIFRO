@@ -1,4 +1,3 @@
-// styles.js
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
@@ -48,6 +47,29 @@ export default StyleSheet.create({
     fontWeight: "600",
     fontSize: 16
   },
+  itemContainer: {
+    flexDirection: "row",     // alinha texto e botões na mesma linha
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 12,
+    marginVertical: 4,
+    backgroundColor: "#F2F2F7",
+    borderRadius: 10
+  },
+  removeButton: {
+    backgroundColor: "#FF3B30", // vermelho para remover
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginLeft: 8
+  },
+  editButton: {
+    backgroundColor: "#007AFF", // azul para editar
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginLeft: 8
+  },
   item: {
     padding: 14
   },
@@ -79,5 +101,15 @@ export default StyleSheet.create({
   },
   scrollContent: {
     padding: 16
+  },
+  filtro: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    marginVertical: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+
   }
 });
