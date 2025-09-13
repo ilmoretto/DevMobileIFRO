@@ -83,13 +83,6 @@ function TaskApp() {
     setModalConfirmacao(false);
     setTarefaParaRemover(null);
   };
-
-
-
-
-
-
-
   // filtro
   let listaFiltrada;
   if (filtro === "concluidas") {
@@ -154,8 +147,6 @@ function TaskApp() {
         )}
 
       />
-
-
       {/* Modal de edição */}
       <ModalComponent
         visible={modalEdicao}
@@ -186,5 +177,4 @@ function TaskApp() {
     </View>
   );
 }
-
 export default TaskApp;
