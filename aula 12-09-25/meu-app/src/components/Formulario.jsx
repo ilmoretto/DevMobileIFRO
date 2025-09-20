@@ -13,6 +13,7 @@ export default function Formulario() {
     // actions
     const validateForm = () => {
         let isValid = true;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!nome.trim()) {//
             setNomeError('O nome é obrigatório.');
@@ -20,16 +21,10 @@ export default function Formulario() {
         } else {
             setNomeError('');
         }
-        return isValid;
-    }
-
-    const validateEmail = (email) => {
-        let isValid = true;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.trim()) {//
-            setEmailError('O email é obrigatório.');
+        if(!email.trim()) {
+            setEmailError('O email é obrigatório!');
             isValid = false;
-        } else {
+        }else{
             setEmailError('');
         }
         return isValid;
@@ -52,25 +47,6 @@ export default function Formulario() {
 
         }
     };
-    const handleEmailChange = (text) => {
-        if (!validateEmail(text)) {
-            const dados = { email };
-            console.log("Dados do formulário válidos", dados);
-            Alert.alert('Sucesso', 'Email enviado com sucesso!');
-            alert("Sucesso!!!");
-
-            // Limpar o formulário
-            setEmail(text);
-        } else {
-            Alert.alert('Erro', 'Formulário enviado com erro!');
-            alert("Algum campo vazio PORRAAAAAAAA!!!");
-        }
-
-    }
-
-
-
-
 
     // visualizacao
     return (
@@ -99,11 +75,9 @@ export default function Formulario() {
                     ></TextInput>
                     {emailError ? <Text style={globalStyles.errorText}>{emailError}</Text> : null}
                 </View>
-                <TouchableOpacity style={globalStyles.button} onPress={[handleSubmit, handleEmailChange]}>
+                <TouchableOpacity style={globalStyles.button} onPress={handleSubmit}>
                     <Text style={globalStyles.buttonText}>Enviar</Text>
                 </TouchableOpacity>
-
-
 
             </View>
 
