@@ -41,6 +41,11 @@ export const globalStyles = StyleSheet.create({
     padding: 20,
     paddingTop: 50,
   },
+  scrollContainer: {
+  padding: 20,
+  paddingTop: 50,
+  flexGrow: 1,
+},
   
   // Títulos
   title: {
@@ -104,6 +109,10 @@ export const globalStyles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
   },
+  
+
+
+
 });
 
 export { COLORS };

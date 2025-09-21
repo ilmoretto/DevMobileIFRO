@@ -1,0 +1,29 @@
+
+                
+
+                
+
+                
+
+                {/* Email da Conta */}
+                <View style={globalStyles.inputContainer}>
+                    <TextInput
+                        style={[globalStyles.input, emailContaError && globalStyles.inputError]}
+                        placeholder="Email da Conta"
+                        value={emailConta}
+                        onChangeText={setEmailConta}
+                    />
+                    {emailContaError && <Text style={globalStyles.errorText}>{emailContaError}</Text>}
+                </View>
+
+                {/* Senha */}
+                <View style={globalStyles.inputContainer}>
+                    <TextInput
+                        style={[globalStyles.input, senhaError && globalStyles.inputError]}
+                        placeholder="Senha"
+                        secureTextEntry={true}
+                        value={senha}
+                        onChangeText={setSenha}
+                    />
+                    {senhaError && <Text style={globalStyles.errorText}>{senhaError}</Text>}
+                </View>
