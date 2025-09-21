@@ -209,25 +209,42 @@ export default function Formulario() {
             setEmailContaError('O email da conta é obrigatório.');
             isValid = false;
         } else {
-            setEmailContaError('');
+            const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+            const emailValido = regexEmail.test(emailConta.trim());
+            if (!emailValido) {
+                setEmailContaError('Informe um email válido.');
+                isValid = false;
+            } else {
+                setEmailContaError('');
+            }
         }
+
+        // Regex de senha segura
+        const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         // Senha
         if (!senha.trim()) {
             setSenhaError('A senha é obrigatória.');
             isValid = false;
+        } else if (!senhaRegex.test(senha)) {
+            setSenhaError(
+                'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula,\n uma minúscula, um número e um caractere especial.'
+            );
+            isValid = false;
         } else {
             setSenhaError('');
         }
+
         // Confirmar Senha
         if (!confirmarsenha.trim()) {
-            setConfirmarsenhaError('A confirmação de senha é obrigatória.');
+            setConfirmarsenhaError('A confirmação obrigatória.');
             isValid = false;
         } else if (confirmarsenha !== senha) {
             setConfirmarsenhaError('As senhas não coincidem.');
             isValid = false;
+        } else {
+            setConfirmarsenhaError('');
         }
-
         return isValid;
     };
 
@@ -355,7 +372,7 @@ export default function Formulario() {
         <View style={globalStyles.container}>
             <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
 
-                <Text style={globalStyles.title}>ah vao se foder porra</Text>
+                <Text style={globalStyles.title}>Cadastro Bolsa Cachaça</Text>
 
                 {/* Nome */}
                 <View style={globalStyles.inputContainer}>
@@ -369,7 +386,6 @@ export default function Formulario() {
                     />
                     {nomeError && <Text style={globalStyles.errorText}>{nomeError}</Text>}
                 </View>
-
 
                 {/* Data de Nascimento */}
                 <View style={globalStyles.inputContainer}>

@@ -33,9 +33,9 @@ export const globalStyles = StyleSheet.create({
   },
   
   // Container com scroll
-  scrollView: {
-    flex: 1,
-  },
+  // scrollView: {
+  //   flex: 1,
+  // },
   
   scrollContent: {
     padding: 20,
