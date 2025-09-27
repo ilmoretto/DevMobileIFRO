@@ -39,3 +39,19 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# misc
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project   
+*.log
+*.swp
+*.lock
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.rejected
+*.swo
