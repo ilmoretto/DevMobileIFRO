@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, TextInput, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, FlatList, ActivityIndicator, TextInput, TouchableOpacity } from "react-native";
 import axios from "axios";
+import styles from "../css/consultaEnderecoStyles";
 
 export default function ConsultaEndereco() {
     const [endereco, setEndereco] = useState([]);
@@ -8,76 +9,78 @@ export default function ConsultaEndereco() {
     const [query, setQuery] = useState("");
     const [enderecoError, setEnderecoError] = useState(null);
 
-    useEffect(() => {
-        async function load() {
-            try {
-                if (query.length !== 8) {
-                    setEnderecoError("CEP deve conter 8 dígitos");
-                    setEndereco([]);
-                    setLoading(false);
-                    return;
-                }
-                
-                if (!/^\d{8}$/.test(query)) {
-                    setEnderecoError("CEP deve conter apenas números");
-                    setEndereco([]);
-                    setLoading(false);
-                    return;
-                }
-
-                setLoading(true);
-                setEnderecoError(null);
-                
-                const res = await axios.get(`https://viacep.com.br/ws/${query}/json/`);
-                const data = res.data;
-
-                if (data.erro) {
-                    setEnderecoError("CEP não encontrado");
-                    setEndereco([]);
-                } else {
-                    setEndereco([{
-                        cep: data.cep,
-                        logradouro: data.logradouro,
-                        bairro: data.bairro,
-                        localidade: data.localidade,
-                        uf: data.uf
-                    }]);
-                }
-
-            } catch (e) {
-                console.error(e);
-                setEnderecoError("Erro ao consultar CEP");
+    const buscarCEP = async () => {
+        try {
+            if (query.length !== 8) {
+                setEnderecoError("CEP deve conter 8 dígitos");
                 setEndereco([]);
-            } finally {
-                setLoading(false);
+                return;
             }
-        }
-        
-        if (query.length === 8) {
-            load();
-        } else {
+
+            if (!/^\d{8}$/.test(query)) {
+                setEnderecoError("CEP deve conter apenas números");
+                setEndereco([]);
+                return;
+            }
+
+            setLoading(true);
+            setEnderecoError(null);
+
+            const res = await axios.get(`https://viacep.com.br/ws/${query}/json/`);
+            const data = res.data;
+
+            if (data.erro) {
+                setEnderecoError("CEP não encontrado");
+                setEndereco([]);
+            } else {
+                setEndereco([{
+                    cep: data.cep,
+                    logradouro: data.logradouro,
+                    bairro: data.bairro,
+                    localidade: data.localidade,
+                    uf: data.uf
+                }]);
+            }
+
+        } catch (e) {
+            console.error(e);
+            setEnderecoError("Erro ao consultar CEP");
+            setEndereco([]);
+        } finally {
             setLoading(false);
         }
-    }, [query]);
+    };
 
-    if (loading) return <ActivityIndicator size="large" />;
+    if (loading) return <ActivityIndicator size="large" style={{ marginTop: 50 }} />;
 
     return (
-        <View style={{ flex: 1, padding: 16 }}>
-            <TextInput
-                placeholder="Digite o CEP"
-                value={query}
-                onChangeText={setQuery}
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 16, paddingHorizontal: 8 }}
-                keyboardType="numeric"
-                maxLength={8}
-            />
-            {enderecoError && <Text style={{ color: 'red' }}>{enderecoError}</Text>}
+        <View style={styles.container}>
+        <Text style={styles.listHeader}>Buscar CEP</Text>
+            <View style={styles.searchContainer}>
+                <TextInput
+                    placeholder="Digite o CEP"
+                    value={query}
+                    onChangeText={setQuery}
+                    style={styles.textInput}
+                    keyboardType="numeric"
+                    maxLength={8}
+                />
+                <TouchableOpacity
+                    onPress={buscarCEP}
+                    disabled={loading}
+                    style={styles.button}
+                >
+                    <Text style={styles.buttonText}>
+                        {loading ? 'Buscando...' : 'Buscar'}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            {enderecoError && <Text style={styles.errorText}>{enderecoError}</Text>}
             <FlatList
                 data={endereco}
                 keyExtractor={(item) => item.cep}
-                renderItem={({ item }) => ( 
-                    <View style={{ padding: 16, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
+                renderItem={({ item }) => (
+                    <View style={styles.endercoItem}>
                         <Text>CEP: {item.cep}</Text>
                         <Text>Logradouro: {item.logradouro}</Text>
                         <Text>Bairro: {item.bairro}</Text>
@@ -86,15 +89,8 @@ export default function ConsultaEndereco() {
                     </View>
                 )}
                 ListEmptyComponent={<Text>Nenhum endereço encontrado.</Text>}
-                ListHeaderComponent={<Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 16 }}>Consulta de Endereço por CEP</Text>}
-                ListFooterComponent={<Text style={{ marginTop: 16 }}>Total de endereços encontrados: {endereco.length}</Text>}
-
+                ListFooterComponent={<Text>Total: {endereco.length}</Text>}
             />
-
         </View>
-
-        
     );
-
-
 }
