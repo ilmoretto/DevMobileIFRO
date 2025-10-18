@@ -1,0 +1,5 @@
+goback - volta para a tela anterior
+navigation.navigate para apontar as telas de navegacao -> uso no botao
+npm install @react-navigation/stack  
+npm install @react-navigation/native
+npm install react-native-screens react-native-safe-area-context
