@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "catalogo-app",
-    "slug": "catalogo-app",
+    "name": "tmdb-catalogo",
+    "slug": "tmdb-catalogo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +24,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "tmdbApiKey": "process.env.TMDB_A"
     }
   }
 }
