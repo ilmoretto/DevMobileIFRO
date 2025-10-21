@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
-import { detalhesFilmes, posterUrl } from '../api/tmdb';
+import { detalhesFilmes, posterUrl } from '../services/api/tmdbApi';
 
 export default function TelaDetalhes({ route, navigation }) {
   // route.params é a forma correta de acessar parâmetros passados na navegação

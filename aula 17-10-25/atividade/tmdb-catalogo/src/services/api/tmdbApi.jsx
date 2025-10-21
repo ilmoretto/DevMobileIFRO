@@ -1,8 +1,9 @@
 import axios from "axios";
 import Constants from 'expo-constants';
+import {API_KEY} from '@env';
 
 // pega a chave da API do TMDB a partir do app.json
-const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
+// const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
 
 
 if (!API_KEY) { // verifica se a chave da API está definida

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, FlatList, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import { buscarFilmes, posterUrl } from '../api/tmdb';
+import { buscarFilmes, posterUrl } from '../services/api/tmdbApi';
 
 export default function TelaBusca({ navigation }) {
     const [query, setQuery] = useState('');
