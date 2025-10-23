@@ -43,7 +43,7 @@ export default function TelaDetalhes({ route, navigation }) {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       {/* ScrollView ocupa o espaço do SafeAreaView. Não usamos flexGrow no contentContainerStyle
           para deixar o ScrollView medir o conteúdo real e ativar a rolagem quando necessário. */}
       <ScrollView
@@ -94,6 +94,7 @@ export default function TelaDetalhes({ route, navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#121212' },
   poster: {
     width: '100%',
     height: 450,
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 4,
+    color: '#fff'
   },
   sub: {
     fontSize: 14,
@@ -114,20 +116,23 @@ const styles = StyleSheet.create({
   overview: {
     fontSize: 16,
     marginBottom: 12,
+    color: '#fff'
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 16,
     marginBottom: 8,
+    color: '#fff'
   },
   actor: {
     fontSize: 16,
     marginBottom: 4,
+    color: '#fff'
   },
   trailer: {
     fontSize: 16,
-    color: 'blue',
+    color: '#4340f5ff',
     marginBottom: 4,
   },
 });

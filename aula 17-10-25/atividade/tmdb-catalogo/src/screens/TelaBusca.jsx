@@ -43,7 +43,7 @@ export default function TelaBusca({ navigation }) {
     );
 
     return ( // Tela de busca de filmes
-        <View style={{ flex: 1, padding: 12 }}>
+        <View style={styles.container}>
             <View style={{ flexDirection: 'row', marginBottom: 8 }}>
                 <TextInput
                     placeholder="Digite o nome do filme..."
@@ -53,7 +53,12 @@ export default function TelaBusca({ navigation }) {
                     onSubmitEditing={() => handleBuscar()}
                     returnKeyType="search"
                 />
-                <Button title="Buscar" onPress={handleBuscar} />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleBuscar}
+                >
+                    <Text style={styles.buttonText}>Buscar</Text>
+                </TouchableOpacity>
             </View>
 
             {loading && <ActivityIndicator size="large" />}
@@ -73,12 +78,15 @@ export default function TelaBusca({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    input: { flex: 1, borderWidth: 1, borderRadius: 6, paddingHorizontal: 10, marginRight: 8, height: 42 },
+    container: { flex: 1, padding: 12, backgroundColor: '#121212' },
+    input: { flex: 1, borderWidth: 1, borderRadius: 6, paddingHorizontal: 10, marginRight: 8, height: 42, color: '#d6d2d2ff' },
     item: { flexDirection: 'row' },
     poster: { width: 100, height: 150, borderRadius: 6 },
     noPoster: { justifyContent: 'center', alignItems: 'center', backgroundColor: '#ddd' },
     info: { flex: 1, paddingLeft: 10 },
-    title: { fontWeight: 'bold', fontSize: 16 },
-    date: { color: '#666', marginBottom: 6 },
-    overview: { color: '#333' }
+    title: { fontWeight: 'bold', fontSize: 16, color: '#fff' },
+    date: { color: '#d6d2d2ff', marginBottom: 6 },
+    overview: { color: '#bebebeff' },
+    button: { backgroundColor: '#a51010ff', paddingVertical: 8, paddingHorizontal: 8, borderRadius: 6, justifyContent: 'center', alignItems: 'center', height: 42 },
+    buttonText: { color: '#d6d2d2ff', fontWeight: 'bold', fontSize: 16 }
 });

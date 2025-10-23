@@ -5,7 +5,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 
 import TelaInicial from './src/screens/TelaInicial';
 import TelaDetalhes from './src/screens/TelaDetalhes';
@@ -18,10 +19,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Busca"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#2215d8ff', // Cor do header
+            backgroundColor: '#E50914', // Cor do header
           },
           headerTintColor: '#fff', // Cor do texto do header
           headerTitleStyle: {
@@ -32,7 +33,18 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={TelaInicial}
-          options={{ title: 'Página Inicial' }} // Título customizado
+          options={({navigation}) => ({
+            title: 'MoreteFlix',
+            headerRight: () => (
+              <Ionicons 
+                name="search" 
+                size={24} 
+                color="#fff" 
+                style={{ marginRight: 15 }}
+                onPress={() => navigation.navigate('Busca')}
+              />
+            )
+          })}
         />
         <Stack.Screen
           name="Detalhes"
