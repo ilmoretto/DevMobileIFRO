@@ -342,3 +342,48 @@ node app.js
 **🚀 Boa sorte no desenvolvimento! Sucesso na entrega do projeto!**
 
 *TechCorp Solutions - Departamento de Desenvolvimento Mobile*
+
+---
+
+## Correções Aplicadas (Resumo)
+
+- App/Navegação
+  - Imports ajustados para usar `./screens/*.jsx` sem extensão explícita `.tsx`.
+  - Telas registradas no stack: `Login`, `Register` e `Home` funcionando.
+
+- Login (`screens/LoginScreen.jsx`)
+  - Uso correto das variáveis de estado `username` e `password` na chamada `login(username, password)`.
+  - Navegação para `Home` passando `{ token }` após sucesso.
+
+- Registro (`screens/RegisterScreen.jsx`)
+  - Remoção de texto inválido que quebrava a sintaxe.
+  - Fluxo de navegação de retorno para `Login` após registro.
+
+- Home (`screens/HomeScreen.jsx`)
+  - `useEffect` habilitado para buscar itens inicialmente (remoção do `return null`).
+  - Correções de `async/await` nas ações de criar, atualizar e excluir itens.
+  - Correção de `onPress` no botão de sair.
+
+- Componentes
+  - `components/ItemList.jsx`: remoção de caracteres inválidos no import.
+  - `components/ListItem.jsx`: import corrigido de `react-native`.
+
+- Serviço de API (`services/api.js`)
+  - `API_BASE_URL` ajustada para porta `4000`.
+  - Correção do método de exclusão: `api.delete` (antes estava incorreto).
+
+## Observações de Execução Atualizadas
+
+- API Backend
+  - Porta configurada: `4000` (arquivo `.env` contém `PORT=4000`).
+  - Execução:
+    ```bash
+    # a partir da pasta API/gerenciamento-itens-api
+    npm install
+    node app.js
+    ```
+
+- App Mobile (baseURL)
+  - `services/api.js` aponta para `http://localhost:4000`.
+  - Para Android Emulator use `http://10.0.2.2:4000`.
+  - Para dispositivo físico via Expo, substitua por o IP da sua máquina na LAN (ex.: `http://192.168.x.x:4000`).
